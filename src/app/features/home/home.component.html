@@ -1,0 +1,18 @@
+<p>Benvenuto nello scheduler, l'app che supporta la tua crescita personale</p>
+
+<div class="wa-stats">
+
+  <apx-chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [title]="chartOptions.title"
+    [theme]="chartOptions.theme"
+  ></apx-chart>
+
+  <app-line-chart></app-line-chart>
+</div>
+
+<div class="pie-stats">
+  <app-pie-chart></app-pie-chart>
+</div>

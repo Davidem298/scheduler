@@ -1,0 +1,30 @@
+/* Card management */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5em;
+  background: linear-gradient(whitesmoke, whitesmoke) padding-box,
+              linear-gradient(to right, #00bfff, #0451d6) border-box;
+  border: 4px solid transparent;
+  border-radius: 1.5em;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  cursor: pointer;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(to right, #00bfff, #0451d6) border-box;
+}
+
+.container {
+  margin-top: 1em;
+  font-size: 1em;
+  color: #333;
+}

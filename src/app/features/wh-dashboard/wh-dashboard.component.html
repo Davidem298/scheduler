@@ -1,0 +1,13 @@
+<p class="title">Scegli il tuo allenamento</p>
+
+<div class="card-container">
+    <app-card-allenamento
+        *ngFor="let allenamento of allenamenti"
+        [allenamento]="allenamento"
+        (cardClicked)="onCardClicked($event)"
+    ></app-card-allenamento>
+</div>
+
+<button class="buttons" (click)="goToComponent('aggiungi-allenamento')">Aggiungi un allenamento</button>
+<button class="buttons" (click)="goToComponent('aggiungi-esercizio')">Aggiungi un esercizio</button>
+<button class="buttons" (click)="goToComponent('aggiungi-allenamento-esercizio')">Aggiungi gli esercizi agli allenamenti</button>

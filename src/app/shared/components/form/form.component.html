@@ -1,0 +1,58 @@
+<div *ngIf="isLoading" class="overlay">
+  <div class="spinner"></div>
+</div>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
+
+  <select class="form-element" (change)="onSelectionChange($event)">
+    <option *ngFor="let option of modeOptions" class="form-element" [value]="option">
+      {{ option }}
+    </option>
+  </select>
+
+  <div class="insert-form">
+    <div *ngFor="let field of formElements[getSubmitLabel()]">
+      <app-input
+        *ngIf="field.elementType === 'input'"
+        [formControlName]="field.name"
+        [id]="field.id"
+        [type]="field.type"
+        [placeholder]="field.placeholder"
+        [control]="form.get(field.name)!"
+      ></app-input>
+
+      <app-text-area
+        *ngIf="field.elementType === 'textarea'"
+        [formControlName]="field.name"
+        [id]="field.id"
+        [placeholder]="field.placeholder"
+      ></app-text-area>
+
+      <app-select-box
+        *ngIf="field.elementType === 'select'"
+        [formControlName]="field.name"
+        [id]="field.id"
+        [placeholder]="field.placeholder"
+        [options]="field.options"
+        [keyField]="field.keyField"
+        [dataField]="field.dataField"
+      ></app-select-box>
+    </div>
+  </div>
+
+  <button
+    class="form-element"
+    type="submit"
+    [disabled]="!form.valid"
+  >
+    {{ getSubmitLabel() }}
+    <i class="fa" [ngClass]="{
+      'fa-edit': mode() === 'Modifica allenamento',
+      'fa-plus': mode() === 'Inserisci allenamento',
+      'fa-trash': mode() === 'Elimina allenamento'
+    }"></i>
+  </button>
+
+</form>
+<app-redirect-button></app-redirect-button>
+<app-toast></app-toast>

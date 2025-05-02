@@ -1,0 +1,52 @@
+.title {
+    color: white;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2em;
+    padding: 2em;
+    text-align: center;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+
+
+.buttons {
+    position: relative;
+    z-index: 0;
+    transition: background 0.5s ease;
+    overflow: hidden;
+
+    display: block;
+    width: 20em;
+    padding: 1em 1.2em;
+    font-size: 1em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin: 2em auto;
+    border: none;
+    border-radius: 1em;
+}
+
+.buttons::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to right, #00bfff, #0451d6);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    border-radius: inherit;
+}
+
+.buttons:hover::before {
+    opacity: 1;
+}
+
+.buttons:hover {
+    cursor: pointer;
+}

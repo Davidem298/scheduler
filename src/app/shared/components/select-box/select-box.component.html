@@ -1,0 +1,12 @@
+<select
+  [id]="id"
+  [disabled]="isDisabled"
+  (change)="onValueChange($event)"
+  [value]="value"
+  class="form-element"
+>
+  <option value="" disabled selected hidden>{{ placeholder }}</option>
+  <option *ngFor="let option of selectOptions" [value]="option[keyField]">
+    {{ option[dataField] }}
+  </option>
+</select>

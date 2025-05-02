@@ -1,0 +1,19 @@
+.textarea-element {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.8em 1em;
+  border-radius: 0.8em;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+  background: white;
+  font-family: Arial, Helvetica, sans-serif;
+  resize: none;
+}
+
+.textarea-element:focus {
+  border-color: #6a11cb;
+  box-shadow: 0 0 8px rgba(106, 17, 203, 0.3);
+  outline: none;
+}

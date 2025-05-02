@@ -1,0 +1,7 @@
+<div class="timer">
+  <h2 *ngIf="mode === 'riposo'">Inizia tra {{ secondsLeft }} s</h2>
+  <button (click)="start()" [disabled]="isRunning" class="timer-button">Prossimo esercizio</button>
+
+  <!-- <button (click)="pause()" [disabled]="!isRunning">Pause</button>
+  <button (click)="reset()">Reset</button> -->
+</div>

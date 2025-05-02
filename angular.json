@@ -67,7 +67,8 @@
               "buildTarget": "scheduler:build:production"
             },
             "development": {
-              "buildTarget": "scheduler:build:development"
+              "buildTarget": "scheduler:build:development",
+              "host": "0.0.0.0"
             }
           },
           "defaultConfiguration": "development"
@@ -97,5 +98,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "57b4e57e-f3f3-4101-bab1-24e4e8fda9b0"
   }
 }

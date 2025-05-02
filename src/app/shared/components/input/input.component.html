@@ -1,0 +1,14 @@
+<input
+  [id]="id"
+  class="input-element"
+  [type]="type"
+  [placeholder]="placeholder"
+  [value]="value"
+  (input)="onInput($event)"
+  (blur)="onTouched()"
+/>
+
+<!-- Error message -->
+<div *ngIf="control?.touched && control?.invalid" class="error-message">
+  <small *ngIf="control.errors?.['required']">This field is required.</small>
+</div>
