@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { ApiService } from '../../core/services/api/api-get.service';
-import { AllenamentoEsercizi } from '../../shared/interfaces';
 import { NgIf } from '@angular/common';
-import { ClockComponent } from '../../shared/components/clock/clock.component';
-import { RedirectButtonComponent } from "../../shared/components/redirect-button/redirect-button.component";
+import { ApiService } from '../../core/services/api';
+import { AllenamentoEsercizi } from '../../shared/interfaces';
+import { ClockComponent, RedirectButtonComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-allenamento',

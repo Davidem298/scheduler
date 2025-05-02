@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, effect, Input, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastComponent, SelectBoxComponent, RedirectButtonComponent, TextAreaComponent, InputComponent } from '../';
-import { ApiPostService, ToastService } from '../../../core/services';
+import { ToastService } from '../../../core/services';
+import { ApiPostService } from '../../../core/services/api';
 
 @Component({
   selector: 'app-form',
@@ -68,7 +69,7 @@ export class FormComponent<T extends object> implements OnInit {
 
     const body = this.form.value as T;
 
-    this.apiPostSrv.apiPost<T>(this.endpointUrl, body).subscribe({
+    this.apiPostSrv.postData<T>(this.endpointUrl, body).subscribe({
       next: (MESSAGE) => {
         this.isLoading = false;
         console.log(MESSAGE);

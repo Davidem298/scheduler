@@ -11,8 +11,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  getData<T>(url: string): Observable<T[]> {
-    const beUrl = `http://192.168.1.240:3000/${url}`;
+  getData<T>(URL: string): Observable<T[]> {
+    const beUrl = `http://192.168.1.240:3000/${URL}`;
     return this.http.get<T[]>(beUrl);
   }
 }

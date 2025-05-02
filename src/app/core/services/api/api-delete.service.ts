@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,12 @@ import { Injectable } from '@angular/core';
 })
 export class ApiDeleteService {
 
-  constructor() { }
+  private beUrl = 'http://192.168.1.240:3000/';
+
+  constructor(private http: HttpClient) { }
+
+  deleteData(URL: string) {
+    const COMPLETE_URL = this.beUrl + URL;
+    return this.http.delete(COMPLETE_URL);
+  }
 }

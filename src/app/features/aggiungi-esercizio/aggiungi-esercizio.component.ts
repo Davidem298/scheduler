@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FormComponent } from '../../shared/components/form/form.component';
-import { ApiPostService } from '../../core/services/api/api-post.service';
-import { EsercizioForm } from '../../shared/interfaces/esercizioForm.model';
 
 @Component({
   selector: 'app-aggiungi-esercizio',
