@@ -8,3 +8,9 @@ export * from './redirect-button/redirect-button.component';
 export * from './select-box/select-box.component';
 export * from './text-area/text-area.component';
 export * from './toast/toast.component';
+
+export * from './input/input.component';
+export * from './text-area/text-area.component';
+export * from './redirect-button/redirect-button.component';
+export * from './select-box/select-box.component';
+export * from './toast/toast.component';

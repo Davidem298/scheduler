@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, forwardRef, Input } from '@angular/core';
-import { AbstractControl, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
@@ -19,10 +19,9 @@ export class InputComponent {
   @Input() id = '';
   @Input() type = 'text';
   @Input() placeholder = '';
+  @Input() value = '';
 
   @Input() control!: AbstractControl;
-
-  value = '';
 
   // These will be assigned by Angular
   onChange = (value: any) => {};

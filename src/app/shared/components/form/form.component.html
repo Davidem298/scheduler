@@ -16,6 +16,7 @@
         *ngIf="field.elementType === 'input'"
         [formControlName]="field.name"
         [id]="field.id"
+        [value]="field.value"
         [type]="field.type"
         [placeholder]="field.placeholder"
         [control]="form.get(field.name)!"
@@ -25,6 +26,7 @@
         *ngIf="field.elementType === 'textarea'"
         [formControlName]="field.name"
         [id]="field.id"
+        [value]="field.value"
         [placeholder]="field.placeholder"
       ></app-text-area>
 
@@ -36,6 +38,7 @@
         [options]="field.options"
         [keyField]="field.keyField"
         [dataField]="field.dataField"
+        (selectionChanged)="test($event)"
       ></app-select-box>
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormComponent } from '../../shared/components/form/form.component';
+import { FormComponent } from '../../shared/components';
 
 @Component({
   selector: 'app-aggiungi-esercizio',

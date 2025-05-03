@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../core/services/api/api-get.service';
+import { ApiGetService } from '../../core/services/api/api-get.service';
 import { Router, } from '@angular/router';
 import { Allenamento } from '../../shared/interfaces';
 import { CardAllenamentoComponent } from '../../shared/components/card-allenamento/card-allenamento.component';
@@ -14,7 +14,7 @@ import { CardAllenamentoComponent } from '../../shared/components/card-allenamen
 export class WhDashboardComponent implements OnInit {
   allenamenti:Allenamento[] = [];
 
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiGetService, private router: Router) {}
 
   ngOnInit() {
     const apiUrl = 'allenamenti';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { ApiService } from '../../core/services/api';
+import { ApiGetService } from '../../core/services/api';
 import { AllenamentoEsercizi } from '../../shared/interfaces';
 import { ClockComponent, RedirectButtonComponent } from '../../shared/components';
 
@@ -21,7 +21,7 @@ export class AllenamentoComponent implements OnInit {
   finished = false;
   timerObject = { duration: 3 }; // instead of just a number
 
-  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiService, private router: Router) {}
+  constructor(private activatedRoute: ActivatedRoute, private apiService: ApiGetService, private router: Router) {}
 
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe(params => {

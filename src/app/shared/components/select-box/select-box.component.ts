@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ApiService } from '../../../core/services/api/api-get.service';
+import { ApiGetService } from '../../../core/services/api';
 
 @Component({
   selector: 'app-select-box',
@@ -23,6 +22,7 @@ export class SelectBoxComponent implements OnInit, ControlValueAccessor {
   @Input() options = '';
   @Input() keyField = '';
   @Input() dataField = '';
+  @Output() selectionChanged = new EventEmitter<string>();
 
   selectOptions: any[] = [];
 
@@ -32,7 +32,7 @@ export class SelectBoxComponent implements OnInit, ControlValueAccessor {
   private onChange = (_: any) => {};
   private onTouched = () => {};
 
-  constructor(private apiGetSrv: ApiService) {}
+  constructor(private apiGetSrv: ApiGetService) {}
 
   ngOnInit() {
     if (this.options) {
@@ -76,5 +76,7 @@ export class SelectBoxComponent implements OnInit, ControlValueAccessor {
     this.value = event.target.value;
     this.onChange(this.value);
     this.onTouched();
+
+    this.selectionChanged.emit(this.value);
   }
 }

@@ -17,8 +17,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 export class TextAreaComponent {
   @Input() id = '';
   @Input() placeholder = '';
-
-  value = '';
+  @Input() value = '';
 
   // These will be assigned by Angular
   onChange = (value: any) => {};
