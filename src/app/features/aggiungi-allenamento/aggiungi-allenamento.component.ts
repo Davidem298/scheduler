@@ -1,6 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
-import { FormComponent } from "../../shared/components";
-import { NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormComponent } from "../../shared/components/form-index";
 
 @Component({
   selector: 'app-aggiungi-allenamento',
@@ -18,6 +17,9 @@ export class AggiungiAllenamentoComponent {
       { elementType: 'select', name: 'ID_ALLENAMENTO', id: 'allenamento', options: 'allenamenti', placeholder: 'Scegli un allenamento', keyField: 'ID_ALLENAMENTO', dataField: 'NOME', required: true },
       { elementType: 'input', name: 'NOME', id: 'NOME', placeholder: 'Nome dell\'allenamento', value: '', required: false },
       { elementType: 'textarea', name: 'DESCRIZIONE', id: 'DESCRIZIONE', placeholder: 'Descrizione dell\'allenamento', value:'', required: false },
+    ],
+    "Elimina" : [
+      { elementType: 'select', name: 'ID_ALLENAMENTO', id: 'allenamento', options: 'allenamenti', placeholder: 'Scegli un allenamento', keyField: 'ID_ALLENAMENTO', dataField: 'NOME', required: true },
     ]
   };
 

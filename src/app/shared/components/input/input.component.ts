@@ -4,7 +4,7 @@ import { AbstractControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
-  imports: [ NgIf ],
+  imports: [NgIf],
   templateUrl: './input.component.html',
   styleUrl: './input.component.css',
   providers: [

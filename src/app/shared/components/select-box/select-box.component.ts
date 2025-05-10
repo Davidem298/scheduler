@@ -1,5 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  FormsModule,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiGetService } from '../../../core/services/api';
 
@@ -10,18 +14,19 @@ import { ApiGetService } from '../../../core/services/api';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: SelectBoxComponent,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   templateUrl: './select-box.component.html',
-  styleUrl: './select-box.component.css'
+  styleUrl: './select-box.component.css',
 })
-export class SelectBoxComponent implements OnInit, ControlValueAccessor {
+export class SelectBoxComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() id = '';
   @Input() placeholder = '';
   @Input() options = '';
   @Input() keyField = '';
   @Input() dataField = '';
+  @Input() reloadTrigger: number = 0; // default trigger value
   @Output() selectionChanged = new EventEmitter<string>();
 
   selectOptions: any[] = [];
@@ -35,6 +40,17 @@ export class SelectBoxComponent implements OnInit, ControlValueAccessor {
   constructor(private apiGetSrv: ApiGetService) {}
 
   ngOnInit() {
+    this.loadOptions();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['reloadTrigger'] && !changes['reloadTrigger'].firstChange) {
+      this.loadOptions(); // re-fetch options
+      this.value = '';
+    }
+  }
+
+  loadOptions() {
     if (this.options) {
       this.apiGetSrv.getData<any[]>(this.options).subscribe({
         next: (data) => {
@@ -42,7 +58,7 @@ export class SelectBoxComponent implements OnInit, ControlValueAccessor {
         },
         error: (err) => {
           console.error('Errore nel caricamento delle opzioni:', err);
-        }
+        },
       });
     }
   }
@@ -54,7 +70,6 @@ export class SelectBoxComponent implements OnInit, ControlValueAccessor {
   getOptionLabel(option: any) {
     return option[this.dataField];
   }
-
 
   writeValue(value: any): void {
     this.value = value;

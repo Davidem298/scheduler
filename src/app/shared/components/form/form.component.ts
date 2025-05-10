@@ -1,39 +1,69 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect, Input, OnInit, signal } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ApiPostService, ApiGetService, ApiPutService } from '../../../core/services/api';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  ApiPostService,
+  ApiGetService,
+  ApiPutService,
+  ApiDeleteService,
+} from '../../../core/services/api';
 import { ToastService } from '../../../core/services';
-
-import { InputComponent } from '../input/input.component';
-import { TextAreaComponent } from '../text-area/text-area.component';
-import { RedirectButtonComponent } from '../redirect-button/redirect-button.component';
-import { SelectBoxComponent } from '../select-box/select-box.component';
-import { ToastComponent } from '../toast/toast.component';
 import { Allenamento } from '../../interfaces';
+import {
+  InputComponent,
+  RedirectButtonComponent,
+  SelectBoxComponent,
+  TextAreaComponent,
+  ToastComponent,
+} from '..';
+import { AllenamentiService } from '../../../core/services/tabelle';
 
 @Component({
   selector: 'app-form',
-  imports: [ReactiveFormsModule, CommonModule, InputComponent, TextAreaComponent, SelectBoxComponent, ToastComponent, RedirectButtonComponent],
+  imports: [
+    ReactiveFormsModule,
+    CommonModule,
+    InputComponent,
+    TextAreaComponent,
+    SelectBoxComponent,
+    ToastComponent,
+    RedirectButtonComponent,
+  ],
   templateUrl: './form.component.html',
-  styleUrl: './form.component.css'
+  styleUrl: './form.component.css',
 })
-export class FormComponent<T> implements OnInit {
+export class FormComponent implements OnInit {
   @Input() formElements!: any;
   @Input() formLabel = '';
   @Input() endpointUrl = '';
 
   form!: FormGroup;
   isLoading = false;
-  modeOptions = ['Inserisci allenamento', 'Modifica allenamento', 'Elimina allenamento'];
-  mode = signal<'Inserisci allenamento' | 'Modifica allenamento' | 'Elimina allenamento'>('Inserisci allenamento');
+  modeOptions = [
+    'Crea allenamento',
+    'Modifica allenamento',
+    'Elimina allenamento',
+  ];
+  mode = signal<
+    'Crea allenamento' | 'Modifica allenamento' | 'Elimina allenamento'
+  >('Crea allenamento');
   selectedId = '';
+  reloadCounter = 0;
 
   constructor(
     private fb: FormBuilder,
-    private apiPostSrv: ApiPostService,
     private toastSrv: ToastService,
+    private apiPostSrv: ApiPostService,
     private apiGetSrv: ApiGetService,
-    private apiPutSrv: ApiPutService
+    private apiPutSrv: ApiPutService,
+    private apiDelSrv: ApiDeleteService,
+    private allenamentiSrv: AllenamentiService,
   ) {
     effect(() => {
       const currentLabel = this.getSubmitLabel();
@@ -45,16 +75,20 @@ export class FormComponent<T> implements OnInit {
     this.mode.set(e.target.value);
   }
 
-  isInsertMode = () => this.mode() === 'Inserisci allenamento';
+  isInsertMode = () => this.mode() === 'Crea allenamento';
   isEditMode = () => this.mode() === 'Modifica allenamento';
   isDeleteMode = () => this.mode() === 'Elimina allenamento';
 
   getSubmitLabel(): string {
     switch (this.mode()) {
-      case 'Inserisci allenamento': return 'Aggiungi';
-      case 'Modifica allenamento': return 'Modifica';
-      case 'Elimina allenamento': return 'Elimina';
-      default: return 'Invia';
+      case 'Crea allenamento':
+        return 'Aggiungi';
+      case 'Modifica allenamento':
+        return 'Modifica';
+      case 'Elimina allenamento':
+        return 'Elimina';
+      default:
+        return 'Invia';
     }
   }
 
@@ -69,20 +103,22 @@ export class FormComponent<T> implements OnInit {
     this.apiGetSrv.getOneData<Allenamento>(URL).subscribe({
       next: (MESSAGE: Allenamento) => {
         console.log(MESSAGE);
-        this.formElements['Modifica'][1]['value'] = MESSAGE['NOME'];
-        this.formElements['Modifica'][2]['value'] = MESSAGE['DESCRIZIONE'];
 
+        this.form.patchValue({
+          NOME: MESSAGE['NOME'],
+          DESCRIZIONE: MESSAGE['DESCRIZIONE'],
+        });
       },
       error: (err) => {
         console.error('Errore nella creazione:', err);
-      }
+      },
     });
   }
 
   buildForm() {
     const group: any = {};
     for (const field of this.formElements[this.getSubmitLabel()] ?? []) {
-      if(field.required) {
+      if (field.required) {
         group[field.name] = new FormControl('', Validators.required);
       } else {
         group[field.name] = new FormControl('');
@@ -91,13 +127,13 @@ export class FormComponent<T> implements OnInit {
     this.form = this.fb.group(group);
   }
 
-  onSubmit() {
+  onSubmit<T>() {
     this.isLoading = true;
     console.log('dati da evento ', this.form.value);
 
     const body = this.form.value as T;
 
-    if(this.isInsertMode()) {
+    if (this.isInsertMode()) {
       this.apiPostSrv.postData<T>(this.endpointUrl, body).subscribe({
         next: (MESSAGE) => {
           this.isLoading = false;
@@ -107,7 +143,7 @@ export class FormComponent<T> implements OnInit {
         error: (err) => {
           this.isLoading = false;
           console.error('Errore nella creazione:', err);
-        }
+        },
       });
     } else if (this.isEditMode()) {
       const URL = this.endpointUrl + this.selectedId;
@@ -120,10 +156,24 @@ export class FormComponent<T> implements OnInit {
         error: (err) => {
           this.isLoading = false;
           console.error('Errore durante la modifica:', err);
-        }
-      })
+        },
+      });
+    } else if (this.isDeleteMode()) {
+      const URL = this.endpointUrl + this.selectedId;
+      this.apiDelSrv.deleteData(URL).subscribe({
+        next: (MESSAGE) => {
+          this.isLoading = false;
+          console.log(MESSAGE);
+          this.toastSrv.showSuccess('Dati eliminati con successo!');
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('Errore durante la cancellazione:', err);
+        },
+      });
     }
 
     this.form.reset();
+    this.reloadCounter++; // increment to trigger reload
   }
 }

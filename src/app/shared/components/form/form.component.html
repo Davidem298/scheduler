@@ -38,6 +38,7 @@
         [options]="field.options"
         [keyField]="field.keyField"
         [dataField]="field.dataField"
+        [reloadTrigger]="reloadCounter"
         (selectionChanged)="test($event)"
       ></app-select-box>
     </div>
@@ -51,7 +52,7 @@
     {{ getSubmitLabel() }}
     <i class="fa" [ngClass]="{
       'fa-edit': mode() === 'Modifica allenamento',
-      'fa-plus': mode() === 'Inserisci allenamento',
+      'fa-plus': mode() === 'Crea allenamento',
       'fa-trash': mode() === 'Elimina allenamento'
     }"></i>
   </button>
