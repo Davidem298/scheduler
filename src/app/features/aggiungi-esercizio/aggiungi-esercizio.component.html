@@ -1,5 +1,8 @@
 <app-form
-  [formElements]="formElements"
-  [formLabel]="'Inserisci un nuovo esercizio'"
+  [formElements]="eserciziFormElements"
   [endpointUrl]="'esercizi/'"
+  [isLoading]="isLoading"
+  [toastMessage]="toastMessage"
+  [modeOptions]="modeOptions"
+  (onFormSubmit)="onSubmit($event)"
 ></app-form>

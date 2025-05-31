@@ -14,3 +14,15 @@ p {
     width: 50%;
     float: right;
 }
+
+@media only screen  and (max-width: 400px){
+    .wa-stats {
+    width: 100%;
+    float: none;
+}
+
+.pie-stats {
+    width: 100%;
+    float: none;
+}
+}

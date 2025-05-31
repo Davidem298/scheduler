@@ -1,21 +1,21 @@
 import { Component, signal } from '@angular/core';
 import { FormComponent } from '../../shared/components/form-index';
-import { EserciziService } from '../../core/services/tabelle';
+import { AllenamentiService } from '../../core/services/tabelle';
 
 @Component({
-  selector: 'app-aggiungi-esercizio',
+  selector: 'app-gestione-allenamenti',
   imports: [FormComponent],
-  templateUrl: './aggiungi-esercizio.component.html',
-  styleUrl: './aggiungi-esercizio.component.css',
+  templateUrl: './gestione-allenamenti.component.html',
+  styleUrl: './gestione-allenamenti.component.css',
 })
-export class AggiungiEsercizioComponent {
-  eserciziFormElements = {
+export class AggiungiAllenamentoComponent {
+  addAllenamentoFormElements = {
     Aggiungi: [
       {
         elementType: 'input',
         name: 'NOME',
         id: 'NOME',
-        placeholder: "Nome dell'esercizio",
+        placeholder: "Nome dell'allenamento",
         value: '',
         required: true,
       },
@@ -23,7 +23,7 @@ export class AggiungiEsercizioComponent {
         elementType: 'textarea',
         name: 'DESCRIZIONE',
         id: 'DESCRIZIONE',
-        placeholder: "Descrizione dell'esercizio",
+        placeholder: "Descrizione dell'allenamento",
         value: '',
         required: true,
       },
@@ -31,11 +31,11 @@ export class AggiungiEsercizioComponent {
     Modifica: [
       {
         elementType: 'select',
-        name: 'ID_ESERCIZIO',
-        id: 'esercizio',
-        options: 'esercizi',
-        placeholder: 'Scegli un esercizio',
-        keyField: 'ID_ESERCIZIO',
+        name: 'ID_ALLENAMENTO',
+        id: 'allenamento',
+        options: 'allenamenti',
+        placeholder: 'Scegli un allenamento',
+        keyField: 'ID_ALLENAMENTO',
         dataField: 'NOME',
         required: true,
       },
@@ -43,7 +43,7 @@ export class AggiungiEsercizioComponent {
         elementType: 'input',
         name: 'NOME',
         id: 'NOME',
-        placeholder: "Nome dell'esercizio",
+        placeholder: "Nome dell'allenamento",
         value: '',
         required: false,
       },
@@ -51,7 +51,7 @@ export class AggiungiEsercizioComponent {
         elementType: 'textarea',
         name: 'DESCRIZIONE',
         id: 'DESCRIZIONE',
-        placeholder: "Descrizione dell'esercizio",
+        placeholder: "Descrizione dell'allenamento",
         value: '',
         required: false,
       },
@@ -59,27 +59,27 @@ export class AggiungiEsercizioComponent {
     Elimina: [
       {
         elementType: 'select',
-        name: 'ID_ESERCIZIO',
-        id: 'esercizio',
-        options: 'esercizi',
-        placeholder: 'Scegli un esercizio',
-        keyField: 'ID_ESERCIZIO',
+        name: 'ID_ALLENAMENTO',
+        id: 'allenamento',
+        options: 'allenamenti',
+        placeholder: 'Scegli un allenamento',
+        keyField: 'ID_ALLENAMENTO',
         dataField: 'NOME',
         required: true,
       },
     ],
   };
 
+  constructor(private allenamentiSrv: AllenamentiService) {}
+
   isLoading = false;
   loading = signal(false); // stato reattivo
   toastMessage = '';
-  modeOptions = [
-    { label: 'Crea esercizio', realValue: 'insert' },
-    { label: 'Modifica esercizio', realValue: 'edit' },
-    { label: 'Elimina esercizio', realValue: 'delete' },
+    modeOptions = [
+    { label: 'Crea allenamento', realValue: 'insert' },
+    { label: 'Modifica allenamento', realValue: 'edit' },
+    { label: 'Elimina allenamento', realValue: 'delete' },
   ];
-
-  constructor(private eserciziSrv: EserciziService) {}
 
   onSubmit(event: { data: any; mode: string; selectedID: string }) {
     this.isLoading = true;
@@ -89,7 +89,7 @@ export class AggiungiEsercizioComponent {
     const ID = event.selectedID;
 
     if (MODE === 'insert') {
-      this.eserciziSrv.create(DATA).subscribe({
+      this.allenamentiSrv.create(DATA).subscribe({
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
@@ -101,7 +101,7 @@ export class AggiungiEsercizioComponent {
         },
       });
     } else if (MODE === 'edit') {
-      this.eserciziSrv.edit(ID, DATA).subscribe({
+      this.allenamentiSrv.edit(ID, DATA).subscribe({
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
@@ -113,7 +113,7 @@ export class AggiungiEsercizioComponent {
         },
       });
     } else if (MODE === 'delete') {
-      this.eserciziSrv.delete(ID).subscribe({
+      this.allenamentiSrv.delete(ID).subscribe({
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);

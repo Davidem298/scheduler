@@ -5,8 +5,8 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
 
   <select class="form-element" (change)="onSelectionChange($event)">
-    <option *ngFor="let option of modeOptions" class="form-element" [value]="option">
-      {{ option }}
+    <option *ngFor="let option of modeOptions" class="form-element" [value]="option.realValue">
+      {{ option.label }}
     </option>
   </select>
 
@@ -51,9 +51,9 @@
   >
     {{ getSubmitLabel() }}
     <i class="fa" [ngClass]="{
-      'fa-edit': mode() === 'Modifica allenamento',
-      'fa-plus': mode() === 'Crea allenamento',
-      'fa-trash': mode() === 'Elimina allenamento'
+      'fa-edit': mode() === 'edit',
+      'fa-plus': mode() === 'insert',
+      'fa-trash': mode() === 'delete'
     }"></i>
   </button>
 

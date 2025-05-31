@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { API_URL } from './url';
+import { Observable } from 'rxjs';
+import { Errore, Successo } from '../../../shared/interfaces/api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiPutService {
 
-  // private beUrl = 'http://192.168.1.240:3000/';
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  putData<T>(URL: string, BODY: T) {
+  putData<T>(URL: string, BODY: T): Observable<Successo | Errore> {
     const COMPLETE_URL = API_URL + URL;
-    return this.http.put(COMPLETE_URL, BODY);
+    return this.http.put<Errore | Successo>(COMPLETE_URL, BODY);
   }
 }

@@ -1,24 +1,19 @@
-
 <div class="topnav" id="myTopnav">
   <a
     routerLink="/"
     routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }">
+    [routerLinkActiveOptions]="{ exact: true }"
+    (click)="myFunction()"
+  >
     Home
   </a>
-  <a
-    routerLink="/working-hard"
-    routerLinkActive="active">
-    Working Hard
-  </a>
-  <a
-    routerLink="/counter-calories"
-    routerLinkActive="active">
+  <a routerLink="/working-hard" routerLinkActive="active" (click)="myFunction()"> Working Hard </a>
+  <a routerLink="/counter-calories" routerLinkActive="active">
     Counter Calories
   </a>
 
+  <!-- <a class=""><i class="fa fa-moon-o"></i></a> -->
   <a href="javascript:void(0);" class="icon" (click)="myFunction()">
     <i class="fa fa-bars"></i>
   </a>
 </div>
-

@@ -1,13 +1,20 @@
-<p class="title">Scegli il tuo allenamento</p>
+<div class="test">
 
-<div class="card-container">
-    <app-card-allenamento
-        *ngFor="let allenamento of allenamenti"
-        [allenamento]="allenamento"
-        (cardClicked)="onCardClicked($event)"
-    ></app-card-allenamento>
+    <div class="intestazione-container">
+        <p class="title">Componi il tuo workout</p>
+        <div class="buttons-container">
+
+            <button class="buttons" (click)="goToComponent('aggiungi-allenamento')">Allenamenti</button>
+            <button class="buttons" (click)="goToComponent('aggiungi-esercizio')">Esercizi</button>
+            <button class="buttons" (click)="goToComponent('aggiungi-allenamento-esercizio')">Circuito</button>
+        </div>
+        <div>
+            <input type="text" placeholder="Cerca" class="ricerca">
+        </div>
+    </div>
 </div>
 
-<button class="buttons" (click)="goToComponent('aggiungi-allenamento')">Gestisci gli allenamenti</button>
-<button class="buttons" (click)="goToComponent('aggiungi-esercizio')">Aggiungi un esercizio</button>
-<button class="buttons" (click)="goToComponent('aggiungi-allenamento-esercizio')">Aggiungi gli esercizi agli allenamenti</button>
+<div class="card-container">
+    <app-card-allenamento *ngFor="let allenamento of allenamenti" [allenamento]="allenamento"
+        (cardClicked)="onCardClicked($event)"></app-card-allenamento>
+</div>

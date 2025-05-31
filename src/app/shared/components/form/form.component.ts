@@ -1,5 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, Input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  effect,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  Signal,
+  signal,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -38,21 +49,23 @@ import { AllenamentiService } from '../../../core/services/tabelle';
   templateUrl: './form.component.html',
   styleUrl: './form.component.css',
 })
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnChanges {
   @Input() formElements!: any;
   @Input() formLabel = '';
   @Input() endpointUrl = '';
+  @Input() isLoading = false;
+  @Input() toastMessage = '';
+  @Input() modeOptions!: any;
+
+  @Output() onFormSubmit = new EventEmitter<{
+    data: any;
+    mode: any;
+    selectedID: string;
+  }>();
 
   form!: FormGroup;
-  isLoading = false;
-  modeOptions = [
-    'Crea allenamento',
-    'Modifica allenamento',
-    'Elimina allenamento',
-  ];
-  mode = signal<
-    'Crea allenamento' | 'Modifica allenamento' | 'Elimina allenamento'
-  >('Crea allenamento');
+
+  mode = signal<'insert' | 'edit' | 'delete'>('insert');
   selectedId = '';
   reloadCounter = 0;
 
@@ -63,7 +76,7 @@ export class FormComponent implements OnInit {
     private apiGetSrv: ApiGetService,
     private apiPutSrv: ApiPutService,
     private apiDelSrv: ApiDeleteService,
-    private allenamentiSrv: AllenamentiService,
+    private allenamentiSrv: AllenamentiService
   ) {
     effect(() => {
       const currentLabel = this.getSubmitLabel();
@@ -75,17 +88,17 @@ export class FormComponent implements OnInit {
     this.mode.set(e.target.value);
   }
 
-  isInsertMode = () => this.mode() === 'Crea allenamento';
-  isEditMode = () => this.mode() === 'Modifica allenamento';
-  isDeleteMode = () => this.mode() === 'Elimina allenamento';
+  isInsertMode = () => this.mode() === 'insert';
+  isEditMode = () => this.mode() === 'edit';
+  isDeleteMode = () => this.mode() === 'delete';
 
   getSubmitLabel(): string {
     switch (this.mode()) {
-      case 'Crea allenamento':
+      case 'insert':
         return 'Aggiungi';
-      case 'Modifica allenamento':
+      case 'edit':
         return 'Modifica';
-      case 'Elimina allenamento':
+      case 'delete':
         return 'Elimina';
       default:
         return 'Invia';
@@ -96,9 +109,15 @@ export class FormComponent implements OnInit {
     this.buildForm();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isLoading'] && changes['isLoading'].currentValue) {
+      this.toastSrv.showSuccess(this.toastMessage);
+    }
+  }
+
   test(e: any) {
     console.log(e);
-    const URL = 'allenamenti/' + e;
+    const URL = this.endpointUrl + e;
     this.selectedId = e;
     this.apiGetSrv.getOneData<Allenamento>(URL).subscribe({
       next: (MESSAGE: Allenamento) => {
@@ -128,48 +147,13 @@ export class FormComponent implements OnInit {
   }
 
   onSubmit<T>() {
-    this.isLoading = true;
-    console.log('dati da evento ', this.form.value);
+    const body = this.form.value;
 
-    const body = this.form.value as T;
-
-    if (this.isInsertMode()) {
-      this.apiPostSrv.postData<T>(this.endpointUrl, body).subscribe({
-        next: (MESSAGE) => {
-          this.isLoading = false;
-          console.log(MESSAGE);
-          this.toastSrv.showSuccess('Dati aggiunti con successo!');
-        },
-        error: (err) => {
-          this.isLoading = false;
-          console.error('Errore nella creazione:', err);
-        },
-      });
-    } else if (this.isEditMode()) {
-      const URL = this.endpointUrl + this.selectedId;
-      this.apiPutSrv.putData<T>(URL, body).subscribe({
-        next: (MESSAGE) => {
-          this.isLoading = false;
-          console.log(MESSAGE);
-          this.toastSrv.showSuccess('Dati modificati con successo!');
-        },
-        error: (err) => {
-          this.isLoading = false;
-          console.error('Errore durante la modifica:', err);
-        },
-      });
-    } else if (this.isDeleteMode()) {
-      const URL = this.endpointUrl + this.selectedId;
-      this.apiDelSrv.deleteData(URL).subscribe({
-        next: (MESSAGE) => {
-          this.isLoading = false;
-          console.log(MESSAGE);
-          this.toastSrv.showSuccess('Dati eliminati con successo!');
-        },
-        error: (err) => {
-          this.isLoading = false;
-          console.error('Errore durante la cancellazione:', err);
-        },
+    if (this.form.valid) {
+      this.onFormSubmit.emit({
+        data: body,
+        mode: this.mode(),
+        selectedID: this.selectedId,
       });
     }
 
