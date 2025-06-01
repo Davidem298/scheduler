@@ -3,12 +3,12 @@ import { FormComponent } from '../../shared/components/form-index';
 import { CircuitiService } from '../../core/services/tabelle';
 
 @Component({
-  selector: 'app-add-allenamenti-esercizi',
+  selector: 'app-gestione-circuiti',
   imports: [FormComponent],
-  templateUrl: './add-allenamenti-esercizi.component.html',
-  styleUrl: './add-allenamenti-esercizi.component.css',
+  templateUrl: './gestione-circuiti.component.html',
+  styleUrl: './gestione-circuiti.component.css',
 })
-export class AddAllenamentiEserciziComponent {
+export class GestioneCircuitiComponent {
   formElements = {
     Aggiungi: [
       {
@@ -87,11 +87,22 @@ export class AddAllenamentiEserciziComponent {
 
   isLoading = false;
   loading = signal(false); // stato reattivo
-  toastMessage = '';
   modeOptions = [
-    { label: 'Crea circuito', realValue: 'insert' },
-    { label: 'Modifica circuito', realValue: 'edit' },
-    { label: 'Elimina circuito', realValue: 'delete' },
+    {
+      label: 'Crea circuito',
+      realValue: 'insert',
+      toastMessage: 'Circuito aggiunto con successo!',
+    },
+    {
+      label: 'Modifica circuito',
+      realValue: 'edit',
+      toastMessage: 'Circuito modificato con successo!',
+    },
+    {
+      label: 'Elimina circuito',
+      realValue: 'delete',
+      toastMessage: 'Circuito eliminato con successo!',
+    },
   ];
 
   onSubmit(event: { data: any; mode: string; selectedID: string }) {
@@ -106,7 +117,6 @@ export class AddAllenamentiEserciziComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati aggiunti con successo!';
         },
         error: (err) => {
           this.isLoading = false;
@@ -118,7 +128,6 @@ export class AddAllenamentiEserciziComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati modificati con successo!';
         },
         error: (err) => {
           this.isLoading = false;
@@ -130,7 +139,6 @@ export class AddAllenamentiEserciziComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati eliminati con successo!';
         },
         error: (err) => {
           this.isLoading = false;

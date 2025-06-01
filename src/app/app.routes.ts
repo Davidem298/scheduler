@@ -4,8 +4,8 @@ import { WorkingHardComponent } from './features/working-hard/working-hard.compo
 import { AllenamentoComponent } from './features/allenamento/allenamento.component';
 import { WhDashboardComponent } from './features/wh-dashboard/wh-dashboard.component';
 import { AggiungiAllenamentoComponent } from './features/gestione-allenamenti/gestione-allenament.component';
-import { AggiungiEsercizioComponent } from './features/aggiungi-esercizio/aggiungi-esercizio.component';
-import { AddAllenamentiEserciziComponent } from './features/add-allenamenti-esercizi/add-allenamenti-esercizi.component';
+import { GestioneEserciziComponent } from './features/gestione-esercizi/gestione-esercizio.component';
+import { GestioneCircuitiComponent } from './features/gestione-circuiti/gestione-circuiti.component';
 
 export const routes: Routes = [
   {
@@ -19,11 +19,11 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // default child
       { path: 'dashboard', component: WhDashboardComponent },
       { path: 'allenamento', component: AllenamentoComponent },
-      { path: 'aggiungi-allenamento', component: AggiungiAllenamentoComponent },
-      { path: 'aggiungi-esercizio', component: AggiungiEsercizioComponent },
+      { path: 'gestisci-allenamenti', component: AggiungiAllenamentoComponent },
+      { path: 'gestisci-esercizi', component: GestioneEserciziComponent },
       {
-        path: 'aggiungi-allenamento-esercizio',
-        component: AddAllenamentiEserciziComponent,
+        path: 'gestisci-circuiti',
+        component: GestioneCircuitiComponent,
       },
     ],
   },

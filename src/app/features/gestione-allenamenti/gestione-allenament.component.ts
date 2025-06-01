@@ -74,11 +74,10 @@ export class AggiungiAllenamentoComponent {
 
   isLoading = false;
   loading = signal(false); // stato reattivo
-  toastMessage = '';
   modeOptions = [
-    { label: 'Crea allenamento', realValue: 'insert' },
-    { label: 'Modifica allenamento', realValue: 'edit' },
-    { label: 'Elimina allenamento', realValue: 'delete' },
+    { label: 'Crea allenamento', realValue: 'insert', toastMessage: 'Allenamento aggiunto con successo!'  },
+    { label: 'Modifica allenamento', realValue: 'edit', toastMessage: 'Allenamento modificato con successo!'  },
+    { label: 'Elimina allenamento', realValue: 'delete', toastMessage: 'Allenamento eliminato con successo!'  },
   ];
 
   onSubmit(event: { data: any; mode: string; selectedID: string }) {
@@ -93,7 +92,6 @@ export class AggiungiAllenamentoComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati aggiunti con successo!';
         },
         error: (err) => {
           this.isLoading = false;
@@ -105,7 +103,6 @@ export class AggiungiAllenamentoComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati modificati con successo!';
         },
         error: (err) => {
           this.isLoading = false;
@@ -117,7 +114,6 @@ export class AggiungiAllenamentoComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati eliminati con successo!';
         },
         error: (err) => {
           this.isLoading = false;

@@ -54,7 +54,6 @@ export class FormComponent implements OnInit, OnChanges {
   @Input() formLabel = '';
   @Input() endpointUrl = '';
   @Input() isLoading = false;
-  @Input() toastMessage = '';
   @Input() modeOptions!: any;
 
   @Output() onFormSubmit = new EventEmitter<{
@@ -111,7 +110,11 @@ export class FormComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isLoading'] && changes['isLoading'].currentValue) {
-      this.toastSrv.showSuccess(this.toastMessage);
+      for(let test of this.modeOptions) {
+        if(test.realValue === this.mode()) {
+          this.toastSrv.showSuccess(test.toastMessage);
+        }
+      }
     }
   }
 

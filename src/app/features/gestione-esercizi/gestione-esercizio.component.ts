@@ -3,12 +3,12 @@ import { FormComponent } from '../../shared/components/form-index';
 import { EserciziService } from '../../core/services/tabelle';
 
 @Component({
-  selector: 'app-aggiungi-esercizio',
+  selector: 'app-gestione-esercizi',
   imports: [FormComponent],
-  templateUrl: './aggiungi-esercizio.component.html',
-  styleUrl: './aggiungi-esercizio.component.css',
+  templateUrl: './gestione-esercizi.component.html',
+  styleUrl: './gestione-esercizi.component.css',
 })
-export class AggiungiEsercizioComponent {
+export class GestioneEserciziComponent {
   eserciziFormElements = {
     Aggiungi: [
       {
@@ -74,9 +74,21 @@ export class AggiungiEsercizioComponent {
   loading = signal(false); // stato reattivo
   toastMessage = '';
   modeOptions = [
-    { label: 'Crea esercizio', realValue: 'insert' },
-    { label: 'Modifica esercizio', realValue: 'edit' },
-    { label: 'Elimina esercizio', realValue: 'delete' },
+    {
+      label: 'Crea esercizio',
+      realValue: 'insert',
+      toastMessage: 'Esercizio aggiunto con successo!',
+    },
+    {
+      label: 'Modifica esercizio',
+      realValue: 'edit',
+      toastMessage: 'Esercizio modificato con successo!',
+    },
+    {
+      label: 'Elimina esercizio',
+      realValue: 'delete',
+      toastMessage: 'Esercizio eliminato con successo!',
+    },
   ];
 
   constructor(private eserciziSrv: EserciziService) {}
@@ -93,7 +105,6 @@ export class AggiungiEsercizioComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati aggiunti con successo!';
         },
         error: (err) => {
           this.isLoading = false;
@@ -105,7 +116,6 @@ export class AggiungiEsercizioComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati modificati con successo!';
         },
         error: (err) => {
           this.isLoading = false;
@@ -117,7 +127,6 @@ export class AggiungiEsercizioComponent {
         next: (MESSAGE) => {
           this.isLoading = false;
           console.log(MESSAGE);
-          this.toastMessage = 'Dati eliminati con successo!';
         },
         error: (err) => {
           this.isLoading = false;
