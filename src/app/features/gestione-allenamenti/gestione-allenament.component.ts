@@ -33,7 +33,7 @@ export class AggiungiAllenamentoComponent {
         elementType: 'select',
         name: 'ID_ALLENAMENTO',
         id: 'allenamento',
-        options: 'allenamenti',
+        endpoint: 'allenamenti',
         placeholder: 'Scegli un allenamento',
         keyField: 'ID_ALLENAMENTO',
         dataField: 'NOME',
@@ -61,7 +61,7 @@ export class AggiungiAllenamentoComponent {
         elementType: 'select',
         name: 'ID_ALLENAMENTO',
         id: 'allenamento',
-        options: 'allenamenti',
+        endpoint: 'allenamenti',
         placeholder: 'Scegli un allenamento',
         keyField: 'ID_ALLENAMENTO',
         dataField: 'NOME',
@@ -75,7 +75,7 @@ export class AggiungiAllenamentoComponent {
   isLoading = false;
   loading = signal(false); // stato reattivo
   toastMessage = '';
-    modeOptions = [
+  modeOptions = [
     { label: 'Crea allenamento', realValue: 'insert' },
     { label: 'Modifica allenamento', realValue: 'edit' },
     { label: 'Elimina allenamento', realValue: 'delete' },

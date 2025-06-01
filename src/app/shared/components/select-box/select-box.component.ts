@@ -23,7 +23,7 @@ import { ApiGetService } from '../../../core/services/api';
 export class SelectBoxComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() id = '';
   @Input() placeholder = '';
-  @Input() options = '';
+  @Input() endpoint = '';
   @Input() keyField = '';
   @Input() dataField = '';
   @Input() reloadTrigger: number = 0; // default trigger value
@@ -51,8 +51,8 @@ export class SelectBoxComponent implements OnInit, OnChanges, ControlValueAccess
   }
 
   loadOptions() {
-    if (this.options) {
-      this.apiGetSrv.getData<any[]>(this.options).subscribe({
+    if (this.endpoint) {
+      this.apiGetSrv.getData<any[]>(this.endpoint).subscribe({
         next: (data) => {
           this.selectOptions = data;
         },
