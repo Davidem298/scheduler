@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { FormComponent } from '../../shared/components/form-index';
 import { CircuitiService } from '../../core/services/tabelle';
+import { formElements } from '../../shared/data';
 
 @Component({
   selector: 'app-gestione-circuiti',
@@ -9,79 +10,7 @@ import { CircuitiService } from '../../core/services/tabelle';
   styleUrl: './gestione-circuiti.component.css',
 })
 export class GestioneCircuitiComponent {
-  formElements = {
-    Aggiungi: [
-      {
-        elementType: 'select',
-        name: 'ID_ALLENAMENTO',
-        id: 'allenamento',
-        endpoint: 'allenamenti',
-        placeholder: 'Scegli un allenamento',
-        keyField: 'ID_ALLENAMENTO',
-        dataField: 'NOME',
-      },
-      {
-        elementType: 'select',
-        name: 'ID_ESERCIZIO',
-        id: 'esercizio',
-        endpoint: 'esercizi',
-        placeholder: 'Scegli un esercizio',
-        keyField: 'ID_ESERCIZIO',
-        dataField: 'NOME',
-      },
-      {
-        elementType: 'input',
-        type: 'number',
-        name: 'NUM_SET',
-        id: 'numSet',
-        placeholder: 'Numero di set',
-      },
-      {
-        elementType: 'input',
-        type: 'number',
-        name: 'NUM_REP',
-        id: 'numRep',
-        placeholder: 'Numero di ripetizioni',
-      },
-      {
-        elementType: 'select',
-        name: 'ID_UM',
-        id: 'unitaMisura',
-        endpoint: 'unitaMisura',
-        placeholder: 'Scegli ripetizioni/secondi',
-        keyField: 'ID_UM',
-        dataField: 'NOME',
-      },
-      {
-        elementType: 'input',
-        type: 'number',
-        name: 'PESO',
-        id: 'peso',
-        placeholder: 'Carico (Kg)',
-      },
-      {
-        elementType: 'input',
-        type: 'number',
-        name: 'RIPOSO_SET',
-        id: 'riposoSet',
-        placeholder: 'Riposo tra set (sec)',
-      },
-      {
-        elementType: 'input',
-        type: 'number',
-        name: 'RIPOSO_ESERCIZI',
-        id: 'riposoEx',
-        placeholder: 'Riposo tra esercizi (sec)',
-      },
-      {
-        elementType: 'input',
-        type: 'number',
-        name: 'INDICE',
-        id: 'indice',
-        placeholder: 'Indice (ordine della sequenza)',
-      },
-    ],
-  };
+  formElements = formElements;
 
   constructor(private circuitiSrv: CircuitiService) {}
 

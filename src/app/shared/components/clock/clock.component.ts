@@ -1,26 +1,26 @@
 import { NgIf } from '@angular/common';
-import { Component, Input, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { ObjectEncodingOptions } from 'fs';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-clock',
   imports: [NgIf],
   templateUrl: './clock.component.html',
-  styleUrl: './clock.component.css'
+  styleUrl: './clock.component.css',
 })
 export class ClockComponent implements OnDestroy {
-  // @Input()
-  // set duration(value: number) {
-  //   this._duration = value;
-  //   this.secondsLeft = value;
-  // }
   @Input() set timerObj(obj: { duration: number }) {
     if (obj) {
       this.duration = obj.duration;
       this.secondsLeft = obj.duration;
     }
   }
-  @Input() mode!: string;
+  @Input() isRiposo: boolean = true;
   @Output() countdownStarted = new EventEmitter<void>();
   @Output() countdownFinished = new EventEmitter<void>();
 

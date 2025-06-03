@@ -1,32 +1,29 @@
-
 <div class="card-allenamento" *ngIf="allenamento[indice_esercizi]">
-
   @if(!finished) {
-    <p *ngIf="mode === 'riposo'">Prossimo esercizio</p>
+  <p *ngIf="isRiposo">Prossimo esercizio</p>
 
-    <p>{{allenamento[indice_esercizi].NOME}}</p>
-    <p>{{allenamento[indice_esercizi].DESCRIZIONE}}</p>
+  <p>{{ allenamento[indice_esercizi].NOME }}</p>
+  <p>{{ allenamento[indice_esercizi].DESCRIZIONE }}</p>
 
-    <p>SET: {{indice_set}} di {{allenamento[indice_esercizi].NUM_SET}}</p>
+  <p>SET: {{ indice_set }} di {{ allenamento[indice_esercizi].NUM_SET }}</p>
 
-    <p>RIPETIZIONI: {{allenamento[indice_esercizi].NUM_REP}}</p>
+  <p>RIPETIZIONI: {{ allenamento[indice_esercizi].NUM_REP }}</p>
 
-    @if (allenamento[indice_esercizi].PESO !== indice_esercizi) {
-      <p>PESO: {{allenamento[indice_esercizi].PESO}} KG</p>
-    } @else {
-      <p>CORPO LIBERO</p>
-    }
-
-    <app-clock
-      [timerObj]="timerObject"
-      [mode]="mode"
-      (countdownStarted)="onStart()"
-      (countdownFinished)="onFinish()"
-    ></app-clock>
+  @if (allenamento[indice_esercizi].PESO !== indice_esercizi) {
+  <p>PESO: {{ allenamento[indice_esercizi].PESO }} KG</p>
   } @else {
-    <p>Workout finito</p>
-    <button (click)="goToHomepage()">Torna alla homepage</button>
+  <p>CORPO LIBERO</p>
+  }
+
+  <app-clock
+    [timerObj]="timerObject"
+    [isRiposo]="isRiposo"
+    (countdownStarted)="onStart()"
+    (countdownFinished)="onFinish()"
+  ></app-clock>
+  } @else {
+  <p>Workout finito</p>
   }
 </div>
-
+<app-timer [durata]="2000"></app-timer>
 <app-redirect-button></app-redirect-button>

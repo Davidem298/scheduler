@@ -118,18 +118,18 @@ export class FormComponent implements OnInit, OnChanges {
     }
   }
 
-  test(e: any) {
-    console.log(e);
+  onSelectionChanged(e: any) {
     const URL = this.endpointUrl + e;
     this.selectedId = e;
     this.apiGetSrv.getOneData<Allenamento>(URL).subscribe({
       next: (MESSAGE: Allenamento) => {
         console.log(MESSAGE);
-
-        this.form.patchValue({
-          NOME: MESSAGE['NOME'],
-          DESCRIZIONE: MESSAGE['DESCRIZIONE'],
+                this.form.patchValue({MESSAGE
         });
+        // this.form.patchValue({
+        //   NOME: MESSAGE['NOME'],
+        //   DESCRIZIONE: MESSAGE['DESCRIZIONE'],
+        // });
       },
       error: (err) => {
         console.error('Errore nella creazione:', err);
