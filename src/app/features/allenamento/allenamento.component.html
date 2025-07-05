@@ -1,4 +1,13 @@
-<div class="card-allenamento" *ngIf="allenamento[indice_esercizi]">
+
+<p>Prossimo esercizio: {{allenamento[indice_esercizi].NOME}}</p>
+
+<app-timer [durata]="tempo()"></app-timer>
+
+
+
+
+
+<!-- <div class="card-allenamento" *ngIf="allenamento[indice_esercizi]">
   @if(!finished) {
   <p *ngIf="isRiposo">Prossimo esercizio</p>
 
@@ -24,6 +33,7 @@
   } @else {
   <p>Workout finito</p>
   }
-</div>
-<app-timer [durata]="2000"></app-timer>
-<app-redirect-button></app-redirect-button>
+</div> -->
+
+<!-- <app-redirect-button></app-redirect-button> -->
+

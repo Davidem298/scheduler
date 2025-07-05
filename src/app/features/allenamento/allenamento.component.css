@@ -9,3 +9,8 @@
   padding: 1em;
   border-radius: 2em;
 }
+
+p {
+  color: white;
+  font-size: 1.2em;
+}

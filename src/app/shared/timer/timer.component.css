@@ -1,3 +1,14 @@
 h1 {
   color: white;
 }
+
+.timer-button {
+  font-family: Arial, Helvetica, sans-serif;
+  border: none;
+  padding: 1em 1.2em;
+  font-size: 1em;
+  border-radius: 1em;
+}
+.timer-button:hover {
+  cursor: pointer;
+}

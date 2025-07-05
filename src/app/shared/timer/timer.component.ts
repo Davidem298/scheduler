@@ -1,38 +1,39 @@
+import { NgIf } from '@angular/common';
 import { Component, effect, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-timer',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.css',
 })
 export class TimerComponent {
-  durata = input<number>(0);
-  rimanente = signal(this.durata());
+  durata = input<number>(0); // signale in input (sola lettura)
+  rimanente = signal(0); // segnale modificabile
+  private intervalId: any; // serve per fermare il setInterval
+  timerAttivo = false;
 
   constructor() {
     effect(() => {
-      console.log(this.durata());
       this.rimanente.set(this.durata()); // per aggiornare il countdown del timer
     });
   }
 
-  inizia() {
-    // setTimeout(this.finito, this.rimanente());
+  iniziaCountdown() {
+    if (this.intervalId) clearInterval(this.intervalId); // per pulire il codice di intervallo
+    this.timerAttivo = true;
 
-    console.log(this.rimanente());
-    setInterval(this.decrementa, 1000);
-  }
+    this.intervalId = setInterval(() => {
+      // perché una funzione normale passata come parametro perde il contesto e quindi non è possibile usare this al suo interno
+      if (this.rimanente() > 0) {
+        this.rimanente.update((value) => value - 1);
+      } else {
+        this.timerAttivo = false;
+        this.rimanente.set(this.durata()); // rimetto la stessa durata perché se viene riassegnata l'input non percepisce il cambiamento
 
-  decrementa() {
-    console.log(this.rimanente());
-    if (this.rimanente) {
-      this.rimanente.update((value) => value - 1000);
-    }
-    // clearInterval();
-  }
-
-  finito() {
-    console.log('finito');
+        clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    }, 1000);
   }
 }

@@ -11,7 +11,7 @@ import { TimerComponent } from "../../shared/timer/timer.component";
 
 @Component({
   selector: 'app-allenamento',
-  imports: [RouterModule, ClockComponent, NgIf, RedirectButtonComponent, TimerComponent],
+  imports: [RouterModule, TimerComponent],
   templateUrl: './allenamento.component.html',
   styleUrl: './allenamento.component.css',
 })
@@ -19,6 +19,7 @@ export class AllenamentoComponent implements OnInit {
   allenamento: AllenamentoEsercizi[] = [];
   indice_esercizi = 0;
   indice_set = 0;
+  tempo = signal<number>(2);
   isRiposo = false;
   finished = false;
   timerObject = { duration: 5 };
@@ -37,6 +38,7 @@ export class AllenamentoComponent implements OnInit {
       const apiUrl = `allenamentiEsercizi/${NOME_ALLENAMENTO}/esercizi`;
       this.apiService.getData<AllenamentoEsercizi>(apiUrl).subscribe((DATA) => {
         this.allenamento = DATA;
+        console.log(DATA);
       });
     });
   }
