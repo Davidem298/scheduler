@@ -1,9 +1,9 @@
-import { NgIf } from '@angular/common';
+
 import { Component, effect, input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-timer',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './timer.component.html',
   styleUrl: './timer.component.css',
 })

@@ -4,12 +4,12 @@ import {
   NG_VALUE_ACCESSOR,
   FormsModule,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { ApiGetService } from '../../../core/services/api';
 
 @Component({
   selector: 'app-select-box',
-  imports: [CommonModule, FormsModule],
+  imports: [FormsModule],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

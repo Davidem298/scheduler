@@ -1,5 +1,7 @@
 <div class="timer">
-  <h2 *ngIf="!isRiposo">Inizia tra {{ secondsLeft }} s</h2>
+  @if (!isRiposo) {
+    <h2>Inizia tra {{ secondsLeft }} s</h2>
+  }
 
   <button (click)="start()" [disabled]="isRunning" class="timer-button">
     Prossimo esercizio

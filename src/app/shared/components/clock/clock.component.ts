@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import {
   Component,
   Input,
@@ -9,7 +9,7 @@ import {
 
 @Component({
   selector: 'app-clock',
-  imports: [NgIf],
+  imports: [],
   templateUrl: './clock.component.html',
   styleUrl: './clock.component.css',
 })

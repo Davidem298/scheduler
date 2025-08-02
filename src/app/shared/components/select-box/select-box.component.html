@@ -4,9 +4,11 @@
   (change)="onValueChange($event)"
   [value]="value"
   class="form-element"
->
+  >
   <option value="" disabled selected hidden>{{ placeholder }}</option>
-  <option *ngFor="let option of selectOptions" [value]="option[keyField]">
-    {{ option[dataField] }}
-  </option>
+  @for (option of selectOptions; track option) {
+    <option [value]="option[keyField]">
+      {{ option[dataField] }}
+    </option>
+  }
 </select>

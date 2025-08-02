@@ -1,54 +1,61 @@
-<div *ngIf="isLoading" class="overlay">
-  <div class="spinner"></div>
-</div>
+@if (isLoading) {
+  <div class="overlay">
+    <div class="spinner"></div>
+  </div>
+}
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form">
 
   <select class="form-element" (change)="onSelectionChange($event)">
-    <option *ngFor="let option of modeOptions" class="form-element" [value]="option.realValue">
-      {{ option.label }}
-    </option>
+    @for (option of modeOptions; track option) {
+      <option class="form-element" [value]="option.realValue">
+        {{ option.label }}
+      </option>
+    }
   </select>
 
   <div class="insert-form">
-    <div *ngFor="let field of formElements[getSubmitLabel()]">
-      <app-input
-        *ngIf="field.elementType === 'input'"
-        [formControlName]="field.name"
-        [id]="field.id"
-        [value]="field.value"
-        [type]="field.type"
-        [placeholder]="field.placeholder"
-        [control]="form.get(field.name)!"
-      ></app-input>
-
-      <app-text-area
-        *ngIf="field.elementType === 'textarea'"
-        [formControlName]="field.name"
-        [id]="field.id"
-        [value]="field.value"
-        [placeholder]="field.placeholder"
-      ></app-text-area>
-
-      <app-select-box
-        *ngIf="field.elementType === 'select'"
-        [formControlName]="field.name"
-        [id]="field.id"
-        [placeholder]="field.placeholder"
-        [endpoint]="field.endpoint"
-        [keyField]="field.keyField"
-        [dataField]="field.dataField"
-        [reloadTrigger]="reloadCounter"
-        (selectionChanged)="onSelectionChanged($event)"
-      ></app-select-box>
-    </div>
+    @for (field of formElements[getSubmitLabel()]; track field) {
+      <div>
+        @if (field.elementType === 'input') {
+          <app-input
+            [formControlName]="field.name"
+            [id]="field.id"
+            [value]="field.value"
+            [type]="field.type"
+            [placeholder]="field.placeholder"
+            [control]="form.get(field.name)!"
+          ></app-input>
+        }
+        @if (field.elementType === 'textarea') {
+          <app-text-area
+            [formControlName]="field.name"
+            [id]="field.id"
+            [value]="field.value"
+            [placeholder]="field.placeholder"
+          ></app-text-area>
+        }
+        @if (field.elementType === 'select') {
+          <app-select-box
+            [formControlName]="field.name"
+            [id]="field.id"
+            [placeholder]="field.placeholder"
+            [endpoint]="field.endpoint"
+            [keyField]="field.keyField"
+            [dataField]="field.dataField"
+            [reloadTrigger]="reloadCounter"
+            (selectionChanged)="onSelectionChanged($event)"
+          ></app-select-box>
+        }
+      </div>
+    }
   </div>
 
   <button
     class="form-element"
     type="submit"
     [disabled]="!form.valid"
-  >
+    >
     {{ getSubmitLabel() }}
     <i class="fa" [ngClass]="{
       'fa-edit': mode() === 'edit',

@@ -2,7 +2,9 @@
   (click)="iniziaCountdown()"
   [disabled]="timerAttivo"
   class="timer-button"
->
+  >
   Inizia
 </button>
-<h1 *ngIf="timerAttivo">Rimanente: {{ this.rimanente() }}</h1>
+@if (timerAttivo) {
+  <h1>Rimanente: {{ this.rimanente() }}</h1>
+}

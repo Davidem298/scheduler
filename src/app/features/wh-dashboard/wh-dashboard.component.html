@@ -19,9 +19,10 @@
 </div>
 
 <div class="card-container">
-  <app-card-allenamento
-    *ngFor="let allenamento of allenamenti"
-    [allenamento]="allenamento"
-    (cardClicked)="onCardClicked($event)"
-  ></app-card-allenamento>
+  @for (allenamento of allenamenti; track allenamento) {
+    <app-card-allenamento
+      [allenamento]="allenamento"
+      (cardClicked)="onCardClicked($event)"
+    ></app-card-allenamento>
+  }
 </div>

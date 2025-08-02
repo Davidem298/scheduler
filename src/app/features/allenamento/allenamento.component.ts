@@ -1,6 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+
 import { ApiGetService } from '../../core/services/api';
 import { AllenamentoEsercizi } from '../../shared/interfaces';
 import {

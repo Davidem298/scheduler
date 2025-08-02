@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ApiGetService } from '../../core/services/api/api-get.service';
 import { Router, } from '@angular/router';
@@ -7,7 +7,7 @@ import { CardAllenamentoComponent } from '../../shared/components/card-allenamen
 
 @Component({
   selector: 'app-wh-dashboard',
-  imports: [ CommonModule, CardAllenamentoComponent ],
+  imports: [CardAllenamentoComponent],
   templateUrl: './wh-dashboard.component.html',
   styleUrl: './wh-dashboard.component.css'
 })
