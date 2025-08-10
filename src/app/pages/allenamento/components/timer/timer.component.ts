@@ -1,5 +1,4 @@
-
-import { Component, effect, input, signal } from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 
 @Component({
   selector: 'app-timer',
@@ -8,10 +7,12 @@ import { Component, effect, input, signal } from '@angular/core';
   styleUrl: './timer.component.css',
 })
 export class TimerComponent {
-  durata = input<number>(0); // signale in input (sola lettura)
+  durata = input(0); // segnale in input (sola lettura)
   rimanente = signal(0); // segnale modificabile
+  timerAttivo = signal(false);
   private intervalId: any; // serve per fermare il setInterval
-  timerAttivo = false;
+  inizioTimer = output();
+  fineTimer = output();
 
   constructor() {
     effect(() => {
@@ -21,14 +22,16 @@ export class TimerComponent {
 
   iniziaCountdown() {
     if (this.intervalId) clearInterval(this.intervalId); // per pulire il codice di intervallo
-    this.timerAttivo = true;
+    this.timerAttivo.set(true);
+    this.inizioTimer.emit();
 
     this.intervalId = setInterval(() => {
       // perché una funzione normale passata come parametro perde il contesto e quindi non è possibile usare this al suo interno
       if (this.rimanente() > 0) {
         this.rimanente.update((value) => value - 1);
       } else {
-        this.timerAttivo = false;
+        this.fineTimer.emit();
+        this.timerAttivo.set(false);
         this.rimanente.set(this.durata()); // rimetto la stessa durata perché se viene riassegnata l'input non percepisce il cambiamento
 
         clearInterval(this.intervalId);

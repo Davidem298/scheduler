@@ -9,7 +9,7 @@
   />
 
 <!-- Error message -->
-@if (control?.touched && control?.invalid) {
+@if (control.touched && control.invalid) {
   <div class="error-message">
     @if (control.errors?.['required']) {
       <small>This field is required.</small>

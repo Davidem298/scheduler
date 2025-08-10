@@ -1,0 +1,11 @@
+<button
+  (click)="iniziaCountdown()"
+  [disabled]="timerAttivo()"
+  class="timer-button"
+>
+  Inizia esercizio
+</button>
+
+@if (timerAttivo()) {
+<p>Tempo rimanente: {{ this.rimanente() }}</p>
+}

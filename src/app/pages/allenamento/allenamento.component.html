@@ -1,11 +1,17 @@
-
-<p>Prossimo esercizio: {{allenamento[indice_esercizi].NOME}}</p>
-
-<app-timer [durata]="tempo()"></app-timer>
-
-
-
-
+@if(allenamento()[indice_esercizi()]) {
+<div class="info">
+  @if(stato() === 'preview') {
+  <p class="title">Prossimo esercizio</p>
+  <div class="content">
+    <p>{{ allenamento()[indice_esercizi()].NOME }}</p>
+    <p>{{ allenamento()[indice_esercizi()].NUM_SET }} set</p>
+    <p>{{ allenamento()[indice_esercizi()].NUM_REP }} ripetizioni</p>
+    <p>Carico: {{ allenamento()[indice_esercizi()].PESO }} Kg</p>
+  </div>
+  }
+  <app-timer [durata]="tempo()" (inizioTimer)="onStart()"></app-timer>
+</div>
+}
 
 <!-- <div class="card-allenamento" *ngIf="allenamento[indice_esercizi]">
   @if(!finished) {
@@ -36,4 +42,3 @@
 </div> -->
 
 <!-- <app-redirect-button></app-redirect-button> -->
-
